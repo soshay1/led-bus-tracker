@@ -5,11 +5,13 @@
 uint16_t ColorFromRouteType(RouteType type)
 {
     switch(type) {
+        case RouteType::RouteA:
         case RouteType::RouteA1:
         case RouteType::RouteA2:
             return Colors::RED;
         case RouteType::RouteB:
             return Colors::GREEN;
+        case RouteType::RouteC:
         case RouteType::RouteC1:
         case RouteType::RouteC2:
         case RouteType::RouteD1:

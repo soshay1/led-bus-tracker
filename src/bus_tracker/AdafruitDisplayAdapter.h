@@ -25,6 +25,11 @@ class AdafruitDisplayAdapter : public DisplayInterface {
             this->matrix.drawLine(x0,x1,y0,y1,color);
         }
 
+        void fillScreen(uint16_t color)
+        {
+            matrix.fillScreen(color);
+        }
+
         void show()
         {
             this->matrix.show();

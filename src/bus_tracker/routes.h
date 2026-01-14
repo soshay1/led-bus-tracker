@@ -2,9 +2,11 @@
 #include <cstdint>
 
 enum RouteType {
+    RouteA,
     RouteA1,
     RouteA2,
     RouteB,
+    RouteC,
     RouteC1,
     RouteC2,
     RouteD1,
@@ -20,7 +22,8 @@ enum Direction {
 typedef struct {
     RouteType type;
     Direction dir;
-    int minutesUntilNextBus;
+    bool isDelayed;
+    int minutes;
     
 } RouteInfo;
 

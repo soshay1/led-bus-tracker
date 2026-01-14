@@ -16,12 +16,15 @@ class DisplayRenderer {
     private:
         DisplayInterface &matrix;
         uint16_t textColor;
+        uint16_t antiColor;
         void drawCircle(int x, int y, uint16_t color);
-        void drawA(int x, int y);
-        void drawB(int x, int y);
-        void drawC(int x, int y);
-        void drawSmallOne(int x, int y);
-        void drawSmallTwo(int x, int y);
+        void drawA(int x, int y, uint16_t color);
+        void drawB(int x, int y, uint16_t color);
+        void drawC(int x, int y, uint16_t color);
+        void drawD(int x, int y, uint16_t color);
+        void draw75(int x, int y, uint16_t color);
+        void drawSmallOne(int x, int y, uint16_t color);
+        void drawSmallTwo(int x, int y, uint16_t color);
         void drawLargeOne(int x, int y);
         void drawLargeTwo(int x, int y);
         void drawLargeThree(int x, int y);
@@ -41,6 +44,6 @@ class DisplayRenderer {
 
     public:
         void drawRoute(const RouteInfo& route, int row);
-        DisplayRenderer(DisplayInterface &matrix, uint16_t textColor);
+        DisplayRenderer(DisplayInterface &matrix, uint16_t textColor, uint16_t antiColor);
 };
 #endif
