@@ -43,7 +43,7 @@ class DisplayRenderer {
         uint16_t color565(uint8_t red, uint8_t green, uint8_t blue); // Copied the matrix function here because it's a one-liner 
 
     public:
-        void drawRoute(const RouteInfo& route, int row);
+        void drawRoute(const BusArrivalInfo& route, int row);
         DisplayRenderer(DisplayInterface &matrix, uint16_t textColor, uint16_t antiColor);
 };
 #endif

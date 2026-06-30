@@ -13,14 +13,17 @@ DisplayRenderer::DisplayRenderer(DisplayInterface &matrix, uint16_t textColor, u
 *  route (required): the current route to display
 *  row (required):   the row to display this on, valid input is from 0 to 3.
 */
-void DisplayRenderer::drawRoute(const RouteInfo& route, int row)
+void DisplayRenderer::drawRoute(const BusArrivalInfo& route, int row)
 {
 
-    uint16_t color = ColorFromRouteType(route.type);
+    uint16_t color = ColorFromRouteType(route.routeInfo.type);
     uint8_t rowOffset = 16*row;
     this->drawCircle(1, 1 + rowOffset,color);
     
-    switch(route.type){
+    switch(route.routeInfo.type){
+        case RouteType::RouteA:
+            this->drawA(6, 5 + rowOffset, textColor);
+            break;
         case RouteType::RouteA1:
             this->drawA(3, 5 + rowOffset, textColor);
             this->drawSmallOne(10, 7 + rowOffset, textColor);
@@ -32,6 +35,9 @@ void DisplayRenderer::drawRoute(const RouteInfo& route, int row)
         case RouteType::RouteB:
             this->drawB(6, 5 + rowOffset, antiColor);
             break;
+        case RouteType::RouteC:
+            this->drawC(6, 5 + rowOffset, antiColor);
+            break;
         case RouteType::RouteC1:
             this->drawC(3, 5 + rowOffset, antiColor);
             this->drawSmallOne(10, 7 + rowOffset, antiColor);
@@ -39,6 +45,9 @@ void DisplayRenderer::drawRoute(const RouteInfo& route, int row)
         case RouteType::RouteC2:
             this->drawC(3, 5 + rowOffset, antiColor);
             this->drawSmallTwo(10, 7 + rowOffset, antiColor);
+            break;
+        case RouteType::RouteD:
+            this->drawD(4, 4 + rowOffset, antiColor);
             break;
         case RouteType::RouteD1:
             this->drawD(3, 5 + rowOffset, antiColor);
@@ -53,7 +62,7 @@ void DisplayRenderer::drawRoute(const RouteInfo& route, int row)
             break;
     }
 
-    switch(route.dir)
+    switch(route.routeInfo.dir)
     {
         case Direction::EAST:
             this->drawRightArrow(17, 5 + rowOffset);

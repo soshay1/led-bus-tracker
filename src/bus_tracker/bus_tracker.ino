@@ -1,7 +1,7 @@
-
 #pragma once
 #include "routes.h"
-#include "busAPIService.h"
+#include "RowController.h"
+#include "busAPIClient.h"
 #include "display.h"
 #include "config.h"
 #include "WifiManager.h"
@@ -14,9 +14,9 @@ Adafruit_Protomatter matrix(
 
 AdafruitDisplayAdapter adapter(matrix);
 DisplayRenderer display(adapter, Colors::WHITE, Colors::BLACK);
-int minutes = 0;
-
-// SETUP - RUNS ONCE AT PROGRAM START --------------------------------------
+BusAPIClient BusAPIClient;
+RowController rowController(&display);
+int counter = 0;
 
 void err(int x) {
   uint8_t i;
@@ -29,7 +29,6 @@ void err(int x) {
 
 void setup(void) {
   Serial.begin(115200);
-  //while (!Serial) delay(10);
 
   ProtomatterStatus status = matrix.begin();
   Serial.printf("Protomatter begin() status: %d\n", status);
@@ -40,27 +39,22 @@ void setup(void) {
 
 
 void loop() {
-  BusAPIService busService;
-  std::vector<RouteInfo> routes = busService.parseStopData();
-  uint16_t x, y;
-  RouteInfo R1 = {RouteType::RouteA1, Direction::EAST, minutes};
-  RouteInfo R2 = {RouteType::RouteB, Direction::WEST, 60-minutes};
-  RouteInfo R3 = {RouteType::Route75, Direction::EAST, minutes};
-  RouteInfo R4 = {RouteType::RouteD2, Direction::EAST, minutes};
-  if(minutes>60)
-  {
-      minutes = 0;
+
+  if(counter>=60) {
+    counter = 0;
   }
-  else
-  {
-      minutes+=1;
+  
+  if(counter==0) {
+    std::vector<BusArrivalInfo> routes = BusAPIClient.getStopData();
+    Serial.print(routes.size());
+    rowController.update(routes);
   }
+
   matrix.fillScreen(0x0);
-  display.drawRoute(R1,0);
-  display.drawRoute(R2,1);
-  display.drawRoute(R3,2);
-  display.drawRoute(R4,3);
+  rowController.refresh();
   matrix.show();
-  delay(60000);
+
+  counter+=5;
+  delay(5000);
 
 }

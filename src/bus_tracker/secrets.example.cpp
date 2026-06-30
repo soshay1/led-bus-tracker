@@ -1,6 +1,6 @@
 #include "secrets.h"
 
-String WIFI_SSID = "your ssid here";
-String WIFI_PASS = "your pass here";
-String API_TOKEN = "your api token here";
-String STOP_IDS = "your stop IDs here";
+//const char* WIFI_SSID = "your ssid here";
+//const char* WIFI_PASS = "your pass here";
+//const char* API_TOKEN = "your api token here";
+//const char* STOP_IDS = "your stop IDs here";

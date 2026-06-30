@@ -1,7 +1,6 @@
-#include <Arduino.h>
 #pragma once
 
-extern String WIFI_SSID;
-extern String WIFI_PASS;
-extern String API_TOKEN;
-extern String STOP_IDS;
+extern const char* WIFI_SSID;
+extern const char* WIFI_PASS;
+extern const char* API_TOKEN;
+extern const char* STOP_IDS;
